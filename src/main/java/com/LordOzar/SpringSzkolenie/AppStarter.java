@@ -22,13 +22,13 @@ public class AppStarter implements CommandLineRunner {
     }
 
     public void init(){
-        Book book = new Book("Ogniem i mieczem", 2000, "PWN", "78535635634", new Author("Henryk Sieniewicz"));
+        Book book = new Book("Zbyszek i Totolotek", 2000, "Ożar Entertainment", "001", new Author("Zbyszek Lotto"));
         bookService.saveBook(book);
 
-        Book book2 = new Book("Potop", 1990, "PWN", "90254385733", new Author("Henryk Sieniewicz"));
+        Book book2 = new Book("Informatyki, czyli jak się nie narobić a zarobić", 1984, "Ożar Entertainment", "002", new Author("Bill Gates"));
         bookService.saveBook(book2);
 
-        Book book3 = new Book("Pan Wołodyjowski", 1999, "PWN", "54671724546", new Author("Henryk Sieniewicz"));
+        Book book3 = new Book("Korpo Bełkot - słownik polsko/amerykańsko korporacyjny", 2018, "Ożar Entertainment", "003", new Author("brak"));
         bookService.saveBook(book3);
     }
 
