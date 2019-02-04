@@ -16,22 +16,26 @@ public class BookRepository {
     public Collection<Book> getBooks(){
         return em.createQuery("from Book", Book.class).getResultList();
     }
+
     public Book getBook(int id){
         return em.find(Book.class, id);
     }
 
     @Transactional
     public void saveBook(Book book){
-        if(book != null) em.persist(book);
+        if(book != null)
+            em.persist(book);
     }
 
     @Transactional
     public void updateBook(Book book){
-        if(book != null) em.merge(book);
+        if(book != null)
+            em.merge(book);
     }
 
     @Transactional
-    public void deleteBook(Book book){
-        if(book != null) em.remove(book);
+    public void removeBook(Book book) {
+        if(book != null)
+            em.remove(book);
     }
 }

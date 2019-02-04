@@ -1,5 +1,6 @@
 package com.LordOzar.SpringSzkolenie;
 
+import com.LordOzar.SpringSzkolenie.domain.Author;
 import com.LordOzar.SpringSzkolenie.domain.Book;
 import com.LordOzar.SpringSzkolenie.repository.BookRepository;
 import com.LordOzar.SpringSzkolenie.service.BookService;
@@ -8,25 +9,27 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-@PropertySource("classpath:custom.properties")
 @Component
-public class AppStarter implements CommandLineRunner{
+@PropertySource("classpath:custom.properties")
+public class AppStarter implements CommandLineRunner {
 
     @Autowired
-    BookRepository bookRepository;
+    BookService bookService;
 
     @Override
     public void run(String... args) throws Exception {
         init();
-
     }
 
     public void init(){
-        Book book = new Book("Przygody Witka", 2018, "Nova", "523 622 689");
-        bookRepository.saveBook(book);
-        //BookRepository.saveBook(book);
-        //BookService.saveBook(book);
+        Book book = new Book("Ogniem i mieczem", 2000, "PWN", "78535635634", new Author("Henryk Sieniewicz"));
+        bookService.saveBook(book);
 
+        Book book2 = new Book("Potop", 1990, "PWN", "90254385733", new Author("Henryk Sieniewicz"));
+        bookService.saveBook(book2);
+
+        Book book3 = new Book("Pan Wołodyjowski", 1999, "PWN", "54671724546", new Author("Henryk Sieniewicz"));
+        bookService.saveBook(book3);
     }
 
 }
