@@ -4,12 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @NotEmpty (message = "pole nie może być puste")
+    //@Size(min=2, message = "co najmniej 2 litery leszczu")
     private String name;
 
     public Author() {
@@ -34,5 +40,10 @@ public class Author {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 }

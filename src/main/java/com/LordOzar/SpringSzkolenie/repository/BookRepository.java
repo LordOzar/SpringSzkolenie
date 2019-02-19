@@ -38,4 +38,12 @@ public class BookRepository {
         if(book != null)
             em.remove(book);
     }
+
+    public Collection<Book> getBooksByAuthor(String authorName){
+    //return em.createQuery("from Book b WHERE b.author.name = :authorName", Book.class)
+        return em.createQuery("from Book b WHERE LOWER (b.author.name) LIKE CONTACT('%',:authorName,'%'", Book.class)
+                .setParameter("authorName", authorName)
+                .getResultList();
+    }
+
 }

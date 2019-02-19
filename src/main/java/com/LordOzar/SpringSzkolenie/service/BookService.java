@@ -55,5 +55,16 @@ public class BookService {
         return bookRepository.getBook(id);
     }
 
+//java16
+
+    public List<Book> getBooksByAuthor (String name) {
+        if (name != null)
+            return new ArrayList<>(bookRepository.getBooksByAuthor(name));
+        else
+            return null;
+    }
+
+
+
 
 }

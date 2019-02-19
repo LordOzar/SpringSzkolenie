@@ -2,6 +2,8 @@ package com.LordOzar.SpringSzkolenie.domain;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Random;
@@ -12,18 +14,23 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull
+    @NotNull(message = "tytuł nie może być pusty")
     @Size(min=2, message = "Tytuł musi posiadać co najmniej 2 litery")
     private String title;
 
     @NotNull
     @Range(min=1, max=9999, message = "Rok wydania musi być z przedziału 1 - 9999")
-    private int year;
+    private Integer year;
+
+    @NotNull
+    @Size(min=2, message = "co najmniej 2 litery")
     private String publisher;
+
+    @NotEmpty (message = "pole nie może być puste")
     private String isbn;
 
     @OneToOne
-    private Author author;
+    public @Valid Author author;
 
     public Book(){
 
@@ -53,11 +60,11 @@ public class Book {
         this.title = title;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
