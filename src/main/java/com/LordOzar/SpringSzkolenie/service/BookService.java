@@ -1,3 +1,4 @@
+
 package com.LordOzar.SpringSzkolenie.service;
 import com.LordOzar.SpringSzkolenie.domain.Author;
 import com.LordOzar.SpringSzkolenie.domain.Book;
@@ -5,9 +6,11 @@ import com.LordOzar.SpringSzkolenie.repository.AuthorRepository;
 import com.LordOzar.SpringSzkolenie.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Collection;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class BookService {
@@ -65,6 +68,16 @@ public class BookService {
     }
 
 
+    public List<Book> getBooks(Integer year, String publisher, String isbn) {
+        return new ArrayList<>(bookRepository.getBooks(year, publisher, isbn));
+    }
+
+    public List<Book> getBooksByTitle(String title) {
+        if(title != null)
+            return new ArrayList(bookRepository.getBooksByTitle(title));
+        else
+            return null;
+    }
 
 
 }

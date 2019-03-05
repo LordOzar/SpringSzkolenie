@@ -5,9 +5,11 @@ import com.LordOzar.SpringSzkolenie.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -81,6 +83,35 @@ public class BookRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/books/get", method = RequestMethod.GET)
+    public ResponseEntity<List<Book>> getBooks(@RequestParam(value = "year", required = false) Integer year,
+                                               @RequestParam(value = "publisher", required = false) String publisher,
+                                               @RequestParam(value = "isbn", required = false) String isbn){
+        List<Book> books = bookService.getBooks(year, publisher, isbn);
+
+        if(books == null)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/books/getByTitle", method = RequestMethod.GET)
+    public ResponseEntity<List<Book>> getBooksByTitle(@RequestParam(name = "title", required = true) String title){
+        List<Book> books = bookService.getBooksByTitle(title);
+
+        if(books == null)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ExceptionDetails> exceptionHandler(MissingServletRequestParameterException ex) {
+        ExceptionDetails exceptionDetails = new ExceptionDetails(ex.getClass().getSimpleName(), ex.getMessage());
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
 }
